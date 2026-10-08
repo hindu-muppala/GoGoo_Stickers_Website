@@ -1,5 +1,5 @@
 // 🔗 PLUG IN: your WhatsApp number (country code + number, no "+" or spaces)
-const WHATSAPP_NUMBER = "91XXXXXXXXXX";
+const WHATSAPP_NUMBER = "919989513832";
 
 // Footer year
 document.getElementById("year").textContent = new Date().getFullYear();
