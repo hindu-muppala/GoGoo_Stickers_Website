@@ -1,0 +1,151 @@
+/* ===== TOKENS: change colours here ===== */
+:root {
+  --ink: #1d1545;      /* deep indigo text */
+  --paper: #fffaf0;    /* sticker-sheet paper */
+  --yellow: #ffd93d;
+  --pink: #ff5fa2;
+  --mint: #3ee0b0;
+  --sky: #5aaaff;
+  --white: #fff;
+  --display: "Bagel Fat One", "Trebuchet MS", sans-serif;
+  --body: "DM Sans", system-ui, sans-serif;
+  --pad: clamp(1.25rem, 5vw, 4rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font: 400 1.05rem/1.6 var(--body); color: var(--ink); background: var(--paper); }
+img { max-width: 100%; height: auto; display: block; }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; line-height: 1.1; margin: 0 0 .5em; }
+h1 { font-size: clamp(2.6rem, 7vw, 5rem); }
+h2 { font-size: clamp(2rem, 4.5vw, 3rem); }
+h3 { font-size: 1.4rem; }
+p { margin: 0 0 1em; max-width: 60ch; }
+:focus-visible { outline: 3px solid var(--pink); outline-offset: 3px; }
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-block; padding: .8em 1.4em; font: 700 1rem var(--body);
+  background: var(--ink); color: var(--white); text-decoration: none;
+  border: 3px solid var(--ink); border-radius: 999px; cursor: pointer;
+  box-shadow: 4px 4px 0 var(--pink); transition: transform .15s, box-shadow .15s;
+}
+.btn:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--pink); }
+.btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--pink); }
+.btn-ghost { background: var(--white); color: var(--ink); box-shadow: 4px 4px 0 var(--yellow); }
+.btn-ghost:hover { box-shadow: 6px 6px 0 var(--yellow); }
+.btn-sm { padding: .5em 1.1em; font-size: .95rem; }
+
+/* ===== HEADER ===== */
+.nav {
+  position: sticky; top: 0; z-index: 10; display: flex; justify-content: space-between; align-items: center;
+  padding: .8rem var(--pad); background: var(--paper); border-bottom: 3px solid var(--ink);
+}
+.nav nav { display: flex; gap: 1.25rem; align-items: center; }
+.nav nav a:not(.btn) { color: var(--ink); font-weight: 700; text-decoration: none; }
+.nav nav a:not(.btn):hover { text-decoration: underline wavy var(--pink); }
+.logo { font: 1.6rem var(--display); color: var(--ink); text-decoration: none; }
+.logo span { color: var(--pink); margin-left: .15em; }
+@media (max-width: 520px) { .nav nav a:not(.btn) { display: none; } }
+
+/* ===== HERO ===== */
+.hero {
+  display: grid; grid-template-columns: 1.1fr .9fr; gap: 2rem; align-items: center;
+  padding: clamp(2.5rem, 7vw, 6rem) var(--pad); background: var(--yellow);
+  background-image: radial-gradient(var(--ink) 1.2px, transparent 1.3px); background-size: 22px 22px;
+}
+.hero-copy { background: var(--yellow); padding: 1.5rem; border: 3px solid var(--ink); border-radius: 24px; box-shadow: 8px 8px 0 var(--ink); }
+.hero-copy p { font-size: 1.2rem; }
+.cta-row { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+/* Floating "sticker sheet" in the hero. Signature element of the page. */
+.hero-art { position: relative; min-height: 340px; }
+.sticker {
+  position: absolute; display: grid; place-items: center; font-size: clamp(3rem, 8vw, 5.5rem);
+  width: clamp(110px, 18vw, 170px); aspect-ratio: 1; background: var(--white);
+  border: 6px solid var(--white); border-radius: 36% 64% 58% 42% / 45% 40% 60% 55%;
+  box-shadow: 0 0 0 3px var(--ink), 6px 8px 0 3px var(--ink);
+}
+.s1 { top: 0; left: 8%; transform: rotate(-9deg); background: var(--pink); }
+.s2 { top: 6%; right: 4%; transform: rotate(8deg); background: var(--sky); }
+.s3 { bottom: 2%; left: 18%; transform: rotate(5deg); background: var(--mint); }
+.s4 { bottom: 8%; right: 12%; transform: rotate(-6deg); background: var(--paper); }
+/* The one orchestrated motion: stickers get "slapped" on at load */
+@media (prefers-reduced-motion: no-preference) {
+  .sticker { animation: slap .5s cubic-bezier(.3, 1.6, .5, 1) backwards; }
+  .s2 { animation-delay: .15s; } .s3 { animation-delay: .3s; } .s4 { animation-delay: .45s; }
+}
+@keyframes slap { from { transform: scale(1.8) rotate(0); opacity: 0; } }
+
+@media (max-width: 800px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-art { min-height: 280px; }
+}
+
+/* ===== VALUE STRIP ===== */
+.strip {
+  list-style: none; margin: 0; padding: .9rem var(--pad); display: flex; flex-wrap: wrap; justify-content: center;
+  gap: .5rem 2rem; background: var(--ink); color: var(--white); font-weight: 700;
+}
+.strip li::before { content: "★ "; color: var(--yellow); }
+
+/* ===== SECTIONS ===== */
+.section { padding: clamp(3rem, 7vw, 6rem) var(--pad); }
+.lead { font-size: 1.15rem; }
+
+/* ===== CARDS (die-cut sticker look: white border + hard shadow) ===== */
+.grid { display: grid; gap: 1.75rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-top: 2rem; }
+.card {
+  display: flex; flex-direction: column; padding: 1.25rem 1.25rem 1.5rem; background: var(--white);
+  border: 3px solid var(--ink); border-radius: 22px; box-shadow: 6px 6px 0 var(--ink);
+  transition: transform .2s;
+}
+.card:nth-child(odd):hover { transform: rotate(-1.5deg); }
+.card:nth-child(even):hover { transform: rotate(1.5deg); }
+.card p { flex: 1; }
+.art {
+  display: grid; place-items: center; height: 150px; margin-bottom: 1rem; font-size: 4rem;
+  border: 3px solid var(--ink); border-radius: 14px; overflow: hidden;
+}
+.art-img { width: 100%; height: 100%; object-fit: cover; }
+.c-yellow .art { background: var(--yellow); }
+.c-pink .art { background: linear-gradient(135deg, #ffb3d6, #b9a6ff, #9be8ff); } /* holographic feel */
+.c-mint .art { background: var(--mint); }
+.c-sky .art { background: var(--sky); }
+.price { font: 1.3rem var(--display); color: var(--pink); margin-bottom: .75rem; }
+.card-link { font-weight: 700; color: var(--ink); text-decoration: underline wavy var(--pink); text-underline-offset: 4px; }
+
+/* Custom card: dashed "cut here" border, intentionally secondary to the four above */
+.card-custom { background: var(--paper); border-style: dashed; box-shadow: none; justify-content: space-between; gap: 1rem; }
+.card-custom .art { background: var(--white); }
+.card-custom .btn { align-self: flex-start; }
+
+/* ===== PRICING ===== */
+.pricing { background: var(--pink); color: var(--ink); border-block: 3px solid var(--ink); }
+.price-row { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); margin: 2rem 0 1rem; }
+.price-box {
+  display: flex; flex-direction: column; padding: 1.25rem; text-align: center; background: var(--white);
+  border: 3px solid var(--ink); border-radius: 20px; box-shadow: 5px 5px 0 var(--ink);
+}
+.price-box b { font: 2.6rem/1.1 var(--display); }
+.price-box span { font-weight: 500; }
+.price-box.hot { background: var(--yellow); transform: rotate(-2deg); }
+.note { font-weight: 700; }
+
+/* ===== ORDER ===== */
+.order { display: grid; gap: 3rem; grid-template-columns: 1fr 1fr; align-items: start; }
+@media (max-width: 800px) { .order { grid-template-columns: 1fr; } }
+.contact-list { list-style: none; padding: 0; margin: 1.5rem 0 0; display: flex; flex-wrap: wrap; gap: 1rem; }
+.form {
+  display: grid; gap: 1rem; padding: 1.5rem; background: var(--white);
+  border: 3px solid var(--ink); border-radius: 22px; box-shadow: 8px 8px 0 var(--mint);
+}
+.form label { display: grid; gap: .3rem; font-weight: 700; }
+.form input, .form select, .form textarea {
+  font: 400 1rem var(--body); padding: .65em .8em; color: var(--ink); background: var(--paper);
+  border: 2px solid var(--ink); border-radius: 10px; width: 100%;
+}
+
+/* ===== FOOTER ===== */
+.footer { padding: 1.5rem var(--pad); text-align: center; background: var(--ink); color: var(--white); }
+.footer p { margin: 0 auto; }
